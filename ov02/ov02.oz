@@ -68,9 +68,8 @@ end
 
 %Test of visualizer
 Test_states = [state(main:[a b] trackA:nil trackB:nil)
-state(main:[a] trackA:[b] trackB:nil)
-state(main:nil trackA:[b] trackB:[a])
+	       state(main:[a] trackA:[b] trackB:nil)
+	       state(main:nil trackA:[b] trackB:[a])
 	       state(main:[b] trackA:nil trackB:[a])]
 
-{Visualize Test_states}
-
+%{Visualize Test_states}
