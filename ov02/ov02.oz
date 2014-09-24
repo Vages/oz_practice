@@ -104,6 +104,31 @@ end
 
 % Test (Passed)
 {Visualize {ApplyMoves state(main:[a b] trackA:nil trackB:nil) {Find [a b] [b a]}}}
-	 
-      
-      
+
+% Task4
+declare
+fun {FewFind Xs Ys}
+   case Ys of nil then
+      nil
+   [] H|T then
+      if Xs.1 == H then
+	 case Xs of _|Tx then
+	    {FewFind Tx T}
+	 end
+      else
+	 local PosH LenHs LenTs Hs Ts Movs NewTrain in
+	    LenHs = {Position Xs H}-1
+	    LenTs = {Length Xs}-LenHs
+	    Hs#Ts = {SplitTrain Xs H}
+
+	    Movs = [trackA(LenTs) trackB(LenHs) trackA(~LenTs) trackB(~LenHs)]
+
+	    NewTrain = {Append Ts Hs}
+
+	    {Append Movs {FewFind NewTrain T}}
+	 end
+      end
+   end
+end
+
+{Browse {FewFind [c a b] [c b a]}}
