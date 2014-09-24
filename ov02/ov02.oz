@@ -131,4 +131,34 @@ fun {FewFind Xs Ys}
    end
 end
 
+% Test
 {Browse {FewFind [c a b] [c b a]}}
+
+% Task 5
+declare
+fun {ApplyRules L}
+   case L of nil then
+      nil
+   [] trackA(0)|T then
+      {ApplyRules T}
+   [] trackB(0)|T then
+      {ApplyRules T}
+   [] trackA(N)|trackA(M)|T then
+      trackA(N+M)|{ApplyRules T}
+   [] trackB(N)|trackB(M)|T then
+      trackB(N+M)|{ApplyRules T}
+   else
+      L.1|{ApplyRules L.2}
+   end
+end
+
+declare
+fun {Compress Ms}
+   Ns={ApplyRules Ms}
+in
+   if Ns==Ms then Ms else {Compress Ns} end
+end
+
+{Browse {Compress {Find [a b] [b a]}}}
+
+% I did not manage to create a functioning implementation of Task 6
