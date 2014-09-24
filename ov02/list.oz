@@ -1,6 +1,3 @@
-%Import Visualizer
-\insert 'Visualizer.oz'
-
 %Reimplementation of list functions
 declare Length Take Drop Append Member Position
 
@@ -65,11 +62,3 @@ fun {Position Xs Y}
       end
    end
 end
-
-%Test of visualizer
-Test_states = [state(main:[a b] trackA:nil trackB:nil)
-	       state(main:[a] trackA:[b] trackB:nil)
-	       state(main:nil trackA:[b] trackB:[a])
-	       state(main:[b] trackA:nil trackB:[a])]
-
-%{Visualize Test_states}
