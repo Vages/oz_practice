@@ -66,3 +66,22 @@ end
 
 %Test of Task 2
 {Browse {ApplyMoves state(main:[a b] trackA:nil trackB:nil) [trackA(1) trackB(1) trackA(~1)]}}
+
+%Task 3
+
+%Define SplitTrain
+declare
+fun {SplitTrain Xs Y}
+   local A Hs Ts in
+      A = {Position Xs Y}
+      Hs = {Take Xs A-1}
+      Ts = {Drop Xs A}
+      Hs#Ts
+   end
+end
+
+% Tests
+{Browse {SplitTrain [a b c] a}}
+{Browse {SplitTrain [a b c] b}}
+
+
