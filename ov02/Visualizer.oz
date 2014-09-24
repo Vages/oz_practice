@@ -101,7 +101,7 @@ proc {Visualize States}
       N Engine
    in
       N = ({Atom.toString T}.1 - 96) mod 11
-      Engine = {New Tk.image tkInit(type:photo file:'~/git/oz_practice/ov02/images/'#N#'.gif')}
+      Engine = {New Tk.image tkInit(type:photo file:'images/'#N#'.gif')}
       {C tk(create image X+W div 2 Y+H div 2 image:Engine)}
       {C tk(create text X+W div 2 Y anchor:n text:T)}
    end
