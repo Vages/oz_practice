@@ -80,8 +80,30 @@ fun {SplitTrain Xs Y}
    end
 end
 
-% Tests
-{Browse {SplitTrain [a b c] a}}
-{Browse {SplitTrain [a b c] b}}
+% Tests (passed)
+%{Browse {SplitTrain [a b c] a}}
+%{Browse {SplitTrain [a b c] b}}
 
+declare
+fun {Find Xs Ys}
+   case Ys of nil then
+      nil
+   [] H|T then
+      local PosH LenHs LenTs Hs Ts Movs NewTrain in
+	 LenHs = {Position Xs H}-1 
+	 LenTs = {Length Xs}-LenHs
+	 Hs#Ts = {SplitTrain Xs H}
 
+	 Movs = [trackA(LenTs) trackB(LenHs) trackA(~LenTs) trackB(~LenHs)]
+	 NewTrain = {Append Ts Hs}
+
+	 {Append Movs {Find NewTrain T}}
+      end
+   end
+end
+
+% Test (Passed)
+{Visualize {ApplyMoves state(main:[a b] trackA:nil trackB:nil) {Find [a b] [b a]}}}
+	 
+      
+      
