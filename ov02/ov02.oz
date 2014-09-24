@@ -8,15 +8,14 @@ Test_states = [state(main:[a b] trackA:nil trackB:nil)
 	       state(main:nil trackA:[b] trackB:[a])
 	       state(main:[b] trackA:nil trackB:[a])]
 
-{Visualize Test_states}
+%{Visualize Test_states}
 
 %Task2 Apply moves
 %S is State, ML is MoveList
-
 declare
 fun {ApplyMoves S ML}
    if ML == nil then
-      nil
+      S|nil
    else
       local New_S in
 	 case ML of H|T then
@@ -28,12 +27,16 @@ fun {ApplyMoves S ML}
 		  LenA = {Length TrackA}
 	       
 		  if N>0 then
-		     New_S = state(main:{Take Main LenM-N} trackA:{Append {Drop Main LenM-N} TrackA} trackB:S.trackB)
+		     New_S = state(main:{Take Main LenM-N}
+				   trackA:{Append {Drop Main LenM-N} TrackA}
+				   trackB:S.trackB)
 		  elseif N<0 then
-		     New_S = state(main:{Append Main {Take TrackA {Abs N}}} trackA:{Drop TrackA {Abs N}} trackB:S.trackB)
+		     New_S = state(main:{Append Main {Take TrackA {Abs N}}}
+				   trackA:{Drop TrackA {Abs N}}
+				   trackB:S.trackB)
 		  else
 		     New_S = S
-		  end %End of if
+		  end
 	       end %End of local statement for A
 	    [] trackB(N) then
 	       local LenM LenB Main TrackB in
@@ -43,20 +46,23 @@ fun {ApplyMoves S ML}
 		  LenB = {Length TrackB}
 	       
 		  if N>0 then
-		     New_S = state(main:{Take Main LenM-N} trackB:{Append {Drop Main LenM-N} TrackB} trackA:S.trackA)
+		     New_S = state(main:{Take Main LenM-N}
+				   trackB:{Append {Drop Main LenM-N} TrackB}
+				   trackA:S.trackA)
 		  elseif N<0 then
-		     New_S = state(main:{Append Main {Take TrackB {Abs N}}} trackB:{Drop TrackB {Abs N}} trackA:S.trackA)
+		     New_S = state(main:{Append Main {Take TrackB {Abs N}}}
+				   trackB:{Drop TrackB {Abs N}}
+				   trackA:S.trackA)
 		  else
 		     New_S = S
 		  end %End of if
 	       end %End of local statement for B
-	       New_S|{ApplyMoves New_S T} % This is the recursive call
 	    end %End of trackA and trackB
+	    S|{ApplyMoves New_S T} % This is the recursive call
 	 end %End of ML case H|T
       end % End of local New_S	 
    end
 end
 
-{Browse {ApplyMoves state(main[a b] trackA:nil trackB:nil) [trackA(1) trackB(1) trackA(~1)]}}
-
-% OK, this should be working
+%Test of Task 2
+{Browse {ApplyMoves state(main:[a b] trackA:nil trackB:nil) [trackA(1) trackB(1) trackA(~1)]}}
